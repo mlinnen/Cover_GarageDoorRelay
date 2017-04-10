@@ -12,6 +12,7 @@ namespace Cover
   void GarageDoorRelay::setup()
   {
     pinMode(_relayPin, OUTPUT);
+    digitalWrite(_relayPin, HIGH);
     _relayTimer.setTimeout(_relayEngagedTime);
   }
 
@@ -20,7 +21,7 @@ namespace Cover
     if (_relayTimer.isExpired() && _relayOn)
     {
       _relayOn = false;
-      digitalWrite(_relayPin, LOW);
+      digitalWrite(_relayPin, HIGH);
     }
     // This is the service loop that is called from the main program and will update the state of this component.
     if (_newCommandAvailable)
@@ -97,7 +98,7 @@ namespace Cover
 
   void GarageDoorRelay::fireRelay()
   {
-    digitalWrite(_relayPin, HIGH);
+    digitalWrite(_relayPin, LOW);
     _relayOn = true;
     _relayTimer.restart();
   }
